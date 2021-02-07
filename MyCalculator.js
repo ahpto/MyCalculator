@@ -5,20 +5,20 @@ const entry = document.querySelector("#entry");
 const calc = document.querySelector("#calculator-border-wrap");
 let entryText = document.createTextNode("");
 let newArray = [];
-let multIndex = 0;
-let a = 0; 
-let b = 0; 
-let z = 0;
+let multIndex1 = 0;
+let multIndex2 = 0;
+let arrayNum1 = 0; 
+let arrayNum2 = 0; 
 
 //the following 4 functions calculate times, divide, add, subtract in that order.
 const multi = (newArray) => {
 
     if (newArray.includes(decodeURI("%C3%97"))) {
-    multIndex = newArray.indexOf(decodeURI("%C3%97"));
-    z = multIndex-1;
-    a = parseFloat(newArray[z]);
-    b = parseFloat(newArray[multIndex+1]);
-    newArray.splice(z, 3, a*b); 
+    multIndex1 = newArray.indexOf(decodeURI("%C3%97"));
+    multIndex2 = multIndex1-1;
+    arrayNum1 = parseFloat(newArray[multIndex2]);
+    arrayNum2 = parseFloat(newArray[multIndex1+1]);
+    newArray.splice(multIndex2, 3, arrayNum1*arrayNum2); 
     multi(newArray);
     }
     else {operations(newArray)}; 
@@ -26,11 +26,11 @@ const multi = (newArray) => {
 
 const divi = (newArray) => {
     if (newArray.includes(decodeURI("%C3%B7"))) {
-        multIndex = newArray.indexOf(decodeURI("%C3%B7"));
-        z = multIndex-1;
-        a = parseFloat(newArray[z]);
-        b = parseFloat(newArray[multIndex+1]);
-        newArray.splice(z, 3, a/b);
+        multIndex1 = newArray.indexOf(decodeURI("%C3%B7"));
+        multIndex2 = multIndex1-1;
+        arrayNum1 = parseFloat(newArray[multIndex2]);
+        arrayNum2 = parseFloat(newArray[multIndex1+1]);
+        newArray.splice(multIndex2, 3, arrayNum1/arrayNum2);
         divi(newArray);
         }
         else {operations(newArray)}; 
@@ -38,11 +38,11 @@ const divi = (newArray) => {
 
 const addition = (newArray) => {
     if (newArray.includes("+")) {
-        multIndex = newArray.indexOf("+");
-        z = multIndex-1;
-        a = parseFloat(newArray[z]);
-        b = parseFloat(newArray[multIndex+1]);
-        newArray.splice(z, 3, a+b);
+        multIndex1 = newArray.indexOf("+");
+        multIndex2 = multIndex1-1;
+        arrayNum1 = parseFloat(newArray[multIndex2]);
+        arrayNum2 = parseFloat(newArray[multIndex1+1]);
+        newArray.splice(multIndex2, 3, arrayNum1+arrayNum2);
         addition(newArray);
         }
         else {operations(newArray)}; 
@@ -50,11 +50,11 @@ const addition = (newArray) => {
 
 const subtraction = (newArray) => {
     if (newArray.includes("-")) {
-        multIndex = newArray.indexOf("-");
-        z = multIndex-1;
-        a = parseFloat(newArray[z]);
-        b = parseFloat(newArray[multIndex+1]);
-        newArray.splice(z, 3, a-b);
+        multIndex1 = newArray.indexOf("-");
+        multIndex2 = multIndex1-1;
+        arrayNum1 = parseFloat(newArray[multIndex2]);
+        arrayNum2 = parseFloat(newArray[multIndex1+1]);
+        newArray.splice(multIndex2, 3, arrayNum1-arrayNum2);
         subtraction(newArray);
         }
         else {operations(newArray)}; 
@@ -68,7 +68,13 @@ const operations = (newArray) => {
     else if (newArray.includes("+")) {addition(newArray);}
     else if (newArray.includes("-")) {subtraction(newArray);}
     else { display.textContent = parseFloat(newArray[0].toFixed(9));
-        if (display.textContent.length <= 6) {display.style.fontSize = "60px"}
+        if (display.textContent == "0") {
+        display.classList.add("fadeOut"); 
+          setTimeout(function() {display.style.fontSize = "60px"; //if result is zero; cleared with fadeout
+          display.textContent = "";
+          newArray = [];}, 2000)   
+        }
+        else if (display.textContent.length <= 6) {display.style.fontSize = "60px"}
         else if (display.textContent.length > 6 && display.textContent.length <= 10) 
         {display.style.fontSize = "40px"}
         else if (display.textContent.length > 10)  {display.style.fontSize = "16px"}
@@ -77,17 +83,20 @@ const operations = (newArray) => {
 
 //function for "enter": 
 const enter = () => {
-    if (entryText.textContent == ".") {
+    if (entryText.textContent == "") {
+        entry.textContent = "error, no entry"
+    }
+    else if (entryText.textContent == ".") {
         entry.textContent = "error, decimal without number"
     } 
     else if (newArray.length == 0 && !parseFloat(entryText.textContent)) {
         entry.textContent = "please begin with number"
     }
-    else if (parseFloat(entryText.textContent) && parseFloat(newArray[newArray.length-1])) {
+    else if ((parseFloat(entryText.textContent)) && parseFloat(newArray[newArray.length-1])) {
         entry.textContent = "error";
     }
     else if (!parseFloat(entryText.textContent) && !parseFloat(newArray[newArray.length-1])) {
-        entry.textContent = "error, 2 operators";
+        entry.textContent = "error, 2 operators or zero";
     }
     else {
     newArray.push(entryText.textContent); 
@@ -104,6 +113,7 @@ const enter = () => {
 document.addEventListener("mousedown", function(e) {
 
     if (e.target.className == "working") {
+        display.classList.remove("fadeOut");
         displayCalc(e);
     } 
     

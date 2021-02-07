@@ -205,3 +205,13 @@ h3 {
 }
 
 @font-face {font-family:"alarm clock";src:url("alarm_clock.eot?") format("eot"),url("alarm_clock.woff") format("woff"),url("alarm_clock.ttf") format("truetype"),url("alarm_clock.svg#alarmclock") format("svg");font-weight:normal;font-style:normal;}
+
+
+.fadeOut {
+    animation: fadeOut 3s;
+}
+
+@keyframes fadeOut {
+    0% {color: red;}
+    100% {color: black;} 
+ } 
