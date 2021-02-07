@@ -1,0 +1,208 @@
+body {
+   background-image: url(background.jpg);
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-color: #0a0d0f;
+}
+
+h1 {
+    color:  #983a3c;
+    opacity: 1;
+    font-family: 'Quantico', sans-serif;
+    text-align: center;
+    text-shadow: -1px 1px 0 black; 
+    text-shadow: 1px 1px 0 #000;
+    text-shadow: 1px -1px 0 #000;
+    text-shadow: -1px -1px 0 #000;
+}
+
+h3 {
+    color: #e2ebf0;
+    opacity: .9;
+}
+
+#calculator {
+    left: 500px;
+    top: 150px;
+    position: absolute;
+    width: 260px;
+    height: 360px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    background-color: transparent;
+    z-index: 1;
+}
+
+#calculator-border-wrap {
+    background: linear-gradient(to top right, gray,#3d4042, #848789, #e2ebf0);
+    left: 488px; 
+    top: 140px;
+    position: absolute;
+    width: 280px;
+    height: 380px;
+    border-radius: 1em;
+    z-index: 0;
+    font-size: 20px;
+    box-shadow: 0px 0px 60px 15px rgba(0,0,0,0.75);
+}
+
+#display {
+    height: 80px;
+    width: 236px;
+    line-height: 70px;
+    grid-column: 1/6;
+    grid-row: 1/2;
+    padding: 10px;
+    border-top: solid 2px lightgray; 
+    border-left: solid 2px lightgray;
+    border-bottom: solid 2px lightgray;
+    background-color: black;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    font-family: "alarm clock", sans-serif;
+    color: red;
+    font-size:60px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#entry {
+    height: 40px; 
+    width: 246px;
+    line-height: 40px;
+    grid-column: 1/6;
+    grid-row: 2/3; 
+    border-top: 2px solid #848789;
+    border-right: 2px solid  lightgray;
+    border-left: 2px solid lightgray;
+    border-bottom: 2px solid lightgray;
+    background-color: black;
+    padding: 5px;
+    font-family: "alarm clock", sans-serif;
+    color: orange;
+}
+
+#buttons {
+    display: grid;
+    background: transparent;
+    grid-template-columns: repeat(5, 1fr);
+    width: 250x;
+    height: 196px;
+    border-top: 2px solid #848789;
+    border-right: 2px solid  lightgray;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    border-left: 2px solid lightgray;
+    border-bottom: 2px solid lightgray; 
+    grid-column: 1/6;
+    grid-row: 3/7; 
+    gap: 2px;
+    padding: 2px;
+}
+
+.working {
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0px 2px 3px 3px rgba(0,0,0,0.5);
+    background: radial-gradient(#082428, #1e484c);
+    font-size: 18px;
+    color: white;
+}
+
+.working:active {
+    transform: translateY(2px);
+}
+
+#seven {
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+
+#eight {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+#nine {
+    grid-column: 3/4;
+    grid-row: 1/2;
+}
+
+#divide {
+    grid-column: 4/5;
+    grid-row: 1/2;
+}
+
+#clear {
+    grid-column: 5/6;
+    grid-row: 1/2;
+    font-size: 14px;
+}
+
+#four {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+#five {
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+#six {
+    grid-column: 3/4;
+    grid-row: 2/3;
+}
+#multiply {
+    grid-column: 4/5;
+    grid-row: 2/3;
+}
+#back {
+    grid-column: 5/6;
+    grid-row: 2/3;
+    font-size: 14px;
+}
+
+#one {
+    grid-column: 1/2;
+    grid-row: 3/4;
+}
+#two {
+    grid-column: 2/3;
+    grid-row: 3/4;
+}
+#three {
+    grid-column: 3/4;
+    grid-row: 3/4;
+}
+#subtract {
+    grid-column: 4/5;
+    grid-row: 3/4;
+}
+#equalsButton {
+        grid-column: 5/6;
+        grid-row: 3/5;
+        border-bottom-right-radius: 10px;
+}
+#decimal {
+    grid-column: 1/2;
+    grid-row: 4/5;
+    border-bottom-left-radius: 10px;
+}
+#zero {
+    grid-column: 2/3;
+    grid-row: 4/5;
+}
+#enter {
+    grid-column: 3/4; 
+    grid-row: 4/5;
+    font-size: 14px;
+}
+
+#add {
+    grid-column: 4/5;
+    grid-row: 4/5;
+}
+
+@font-face {font-family:"alarm clock";src:url("alarm_clock.eot?") format("eot"),url("alarm_clock.woff") format("woff"),url("alarm_clock.ttf") format("truetype"),url("alarm_clock.svg#alarmclock") format("svg");font-weight:normal;font-style:normal;}
