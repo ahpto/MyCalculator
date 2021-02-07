@@ -5,6 +5,7 @@ const entry = document.querySelector("#entry");
 const calc = document.querySelector("#calculator-border-wrap");
 let entryText = document.createTextNode("");
 let newArray = [];
+let multIndex = 0;
 let a = 0; 
 let b = 0; 
 let z = 0;
@@ -68,7 +69,7 @@ const operations = (newArray) => {
     else if (newArray.includes("-")) {subtraction(newArray);}
     else { display.textContent = parseFloat(newArray[0].toFixed(9));
         if (display.textContent.length <= 6) {display.style.fontSize = "60px"}
-        else if (display.textContent.length > 6 && display.textContent.length < 10) 
+        else if (display.textContent.length > 6 && display.textContent.length <= 10) 
         {display.style.fontSize = "40px"}
         else if (display.textContent.length > 10)  {display.style.fontSize = "16px"}
     }
@@ -118,7 +119,7 @@ const displayCalc = (e) => {
         entry.textContent = entryText.nodeValue;
     } 
 
-    // codes various functions of non-number buttons
+    //various functions of non-number buttons:
     const notNumber = (e) => {
 
         switch (e.target.id) {
