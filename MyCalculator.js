@@ -92,8 +92,8 @@ const enter = () => {
     newArray.push(entryText.textContent); 
     display.textContent = display.textContent.concat(entryText.textContent);
         if (display.textContent.length > 6 && display.textContent.length < 10) 
-        {display.style.fontSize = "40px"}
-        else if (display.textContent.length > 10)  {display.style.fontSize = "16px"}
+        {display.style.fontSize = "40px";}
+        else if (display.textContent.length > 10)  {display.style.fontSize = "16px";}
     entry.textContent = ""; 
     entryText.nodeValue = "";   
     }
@@ -160,8 +160,10 @@ const displayCalc = (e) => {
             break;
 
         case "equalsButton" :
-            display.textContent = "";
-            operations(newArray);  
+            if (!parseFloat(newArray[newArray.length - 1])) {entry.textContent = "please end with number"}
+            else {display.textContent = "";
+            operations(newArray);
+            }  
             break;
         } 
     }
