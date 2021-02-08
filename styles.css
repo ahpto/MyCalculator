@@ -77,6 +77,7 @@ h3 {
     background-color: black;
     padding: 5px;
     font-family: "alarm clock", sans-serif;
+    font-size: 20px;
     color: orange;
     box-shadow: 0px 4px 5px 1px rgba(0,0,0,0.5);
 }

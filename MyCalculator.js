@@ -5,68 +5,67 @@ const entry = document.querySelector("#entry");
 const calc = document.querySelector("#calculator-border-wrap");
 let entryText = document.createTextNode("");
 let newArray = [];
-let multIndex1 = 0;
-let multIndex2 = 0;
+let indexA = 0;
+let indexA2 = 0;
+let indexB = 0;
+let indexB2 = 0;
 let arrayNum1 = 0; 
 let arrayNum2 = 0; 
 
-//the following 4 functions calculate times, divide, add, subtract in that order.
-const multi = (newArray) => {
-
-    if (newArray.includes(decodeURI("%C3%97"))) {
-    multIndex1 = newArray.indexOf(decodeURI("%C3%97"));
-    multIndex2 = multIndex1-1;
-    arrayNum1 = parseFloat(newArray[multIndex2]);
-    arrayNum2 = parseFloat(newArray[multIndex1+1]);
-    newArray.splice(multIndex2, 3, arrayNum1*arrayNum2); 
-    multi(newArray);
+//the following functions calculate operands in mathematically correct order (ie BEDMAS).
+const multiDivi = (newArray) => {
+    if (newArray.includes(decodeURI("%C3%97")) || newArray.includes(decodeURI("%C3%B7"))) {
+        indexA = newArray.indexOf(decodeURI("%C3%97"));
+        indexB = newArray.indexOf(decodeURI("%C3%B7"));
+        if (indexB == -1 || (indexA > 0 && indexA < indexB)) {
+            indexA2 = indexA-1;
+            arrayNum1 = parseFloat(newArray[indexA2]);
+            arrayNum2 = parseFloat(newArray[indexA+1]);
+            newArray.splice(indexA2, 3, arrayNum1*arrayNum2);
+            multiDivi(newArray); 
+        } 
+        else if (indexA == -1 || (indexB > 0 && indexB < indexA)) {
+            indexB2 = indexB-1;
+            arrayNum1 = parseFloat(newArray[indexB2]);
+            arrayNum2 = parseFloat(newArray[indexB+1]);
+            newArray.splice(indexB2, 3, arrayNum1/arrayNum2); 
+            multiDivi(newArray);
+        }
     }
-    else {operations(newArray)}; 
-}
-
-const divi = (newArray) => {
-    if (newArray.includes(decodeURI("%C3%B7"))) {
-        multIndex1 = newArray.indexOf(decodeURI("%C3%B7"));
-        multIndex2 = multIndex1-1;
-        arrayNum1 = parseFloat(newArray[multIndex2]);
-        arrayNum2 = parseFloat(newArray[multIndex1+1]);
-        newArray.splice(multIndex2, 3, arrayNum1/arrayNum2);
-        divi(newArray);
-        }
-        else {operations(newArray)}; 
+    else {operations(newArray)};
 } 
-
-const addition = (newArray) => {
-    if (newArray.includes("+")) {
-        multIndex1 = newArray.indexOf("+");
-        multIndex2 = multIndex1-1;
-        arrayNum1 = parseFloat(newArray[multIndex2]);
-        arrayNum2 = parseFloat(newArray[multIndex1+1]);
-        newArray.splice(multIndex2, 3, arrayNum1+arrayNum2);
-        addition(newArray);
+const addSub = (newArray) => {
+    if (newArray.includes("+") || newArray.includes("-")) {
+        indexA = newArray.indexOf("+");
+        indexB = newArray.indexOf("-");
+        console.log(newArray);
+        if (indexB == -1 || (indexA > 0 && indexA < indexB)) {
+            indexA2 = indexA-1;
+            arrayNum1 = parseFloat(newArray[indexA2]);
+            arrayNum2 = parseFloat(newArray[indexA+1]);
+            newArray.splice(indexA2, 3, arrayNum1+arrayNum2);
+            addSub(newArray); 
+        } 
+        else if (indexA == -1 || (indexB > 0 && indexB < indexA)) {
+            indexB2 = indexB-1;
+            arrayNum1 = parseFloat(newArray[indexB2]);
+            arrayNum2 = parseFloat(newArray[indexB+1]);
+            newArray.splice(indexB2, 3, arrayNum1-arrayNum2); 
+            addSub(newArray);
         }
-        else {operations(newArray)}; 
-}
-
-const subtraction = (newArray) => {
-    if (newArray.includes("-")) {
-        multIndex1 = newArray.indexOf("-");
-        multIndex2 = multIndex1-1;
-        arrayNum1 = parseFloat(newArray[multIndex2]);
-        arrayNum2 = parseFloat(newArray[multIndex1+1]);
-        newArray.splice(multIndex2, 3, arrayNum1-arrayNum2);
-        subtraction(newArray);
-        }
-        else {operations(newArray)}; 
+    }
+    else {operations(newArray)};
 }
 
 // determines which operations to carry out, and displays answer if no remaining operations:
 const operations = (newArray) => {
     
-    if (newArray.includes(decodeURI("%C3%97"))) {multi(newArray);} 
-    else if (newArray.includes(decodeURI("%C3%B7"))) {divi(newArray);}
-    else if (newArray.includes("+")) {addition(newArray);}
-    else if (newArray.includes("-")) {subtraction(newArray);}
+    if (newArray.includes(decodeURI("%C3%97")) || newArray.includes(decodeURI("%C3%B7"))) {
+        multiDivi(newArray);} 
+
+    else if (newArray.includes("+") || newArray.includes("-")) {
+        addSub(newArray);}
+    
     else { display.textContent = parseFloat(newArray[0].toFixed(9));
         if (display.textContent == "0") {
         display.classList.add("fadeOut"); 
@@ -77,7 +76,7 @@ const operations = (newArray) => {
         else if (display.textContent.length <= 6) {display.style.fontSize = "60px"}
         else if (display.textContent.length > 6 && display.textContent.length <= 10) 
         {display.style.fontSize = "40px"}
-        else if (display.textContent.length > 10)  {display.style.fontSize = "16px"}
+        else if (display.textContent.length > 10)  {display.style.fontSize = "20px"}
     }
 }
 
@@ -101,9 +100,9 @@ const enter = () => {
     else {
     newArray.push(entryText.textContent); 
     display.textContent = display.textContent.concat(entryText.textContent);
-        if (display.textContent.length > 6 && display.textContent.length < 10) 
+        if (display.textContent.length > 6 && display.textContent.length <= 10) 
         {display.style.fontSize = "40px";}
-        else if (display.textContent.length > 10)  {display.style.fontSize = "16px";}
+        else if (display.textContent.length > 10)  {display.style.fontSize = "20px";}
     entry.textContent = ""; 
     entryText.nodeValue = "";   
     }
@@ -288,4 +287,4 @@ calculator.addEventListener("dragstart", function(e) {
         calc.style.top = y-y1-10+"px";
         calc.style.left = x-x1-10+"px"; 
     }) 
-})
+}) 
