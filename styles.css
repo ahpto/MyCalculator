@@ -209,7 +209,7 @@ h3 {
 
 
 .fadeOut {
-    animation: fadeOut 3s;
+    animation: fadeOut 2s;
 }
 
 @keyframes fadeOut {

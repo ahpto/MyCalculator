@@ -10,7 +10,10 @@ let indexA2 = 0;
 let indexB = 0;
 let indexB2 = 0;
 let arrayNum1 = 0; 
-let arrayNum2 = 0; 
+let arrayNum2 = 0;
+
+let fade; 
+const stopper = () => {clearTimeout(fade)};
 
 //the following functions calculate operands in mathematically correct order (ie BEDMAS).
 const multiDivi = (newArray) => {
@@ -38,7 +41,6 @@ const addSub = (newArray) => {
     if (newArray.includes("+") || newArray.includes("-")) {
         indexA = newArray.indexOf("+");
         indexB = newArray.indexOf("-");
-        console.log(newArray);
         if (indexB == -1 || (indexA > 0 && indexA < indexB)) {
             indexA2 = indexA-1;
             arrayNum1 = parseFloat(newArray[indexA2]);
@@ -57,7 +59,8 @@ const addSub = (newArray) => {
     else {operations(newArray)};
 }
 
-// determines which operations to carry out, and displays answer if no remaining operations:
+// determines which operations to carry out in mathematically correct order (ie BEDMAS), 
+//and displays answer if no remaining operations:
 const operations = (newArray) => {
     
     if (newArray.includes(decodeURI("%C3%97")) || newArray.includes(decodeURI("%C3%B7"))) {
@@ -67,12 +70,12 @@ const operations = (newArray) => {
         addSub(newArray);}
     
     else { display.textContent = parseFloat(newArray[0].toFixed(9));
+
+        //if result is zero; screen cleared with 2sec fadeout for visual appeal:
         if (display.textContent == "0") {
-        display.classList.add("fadeOut"); 
-          setTimeout(function() {display.style.fontSize = "60px"; //if result is zero; cleared with fadeout
-          display.textContent = "";
-          newArray = [];}, 2000)   
-        }
+            display.classList.add("fadeOut");
+            fade = setTimeout(function() {display.textContent= "";}, 2000);
+            }   
         else if (display.textContent.length <= 6) {display.style.fontSize = "60px"}
         else if (display.textContent.length > 6 && display.textContent.length <= 10) 
         {display.style.fontSize = "40px"}
@@ -85,17 +88,14 @@ const enter = () => {
     if (entryText.textContent == "") {
         entry.textContent = "error, no entry"
     }
-    else if (entryText.textContent == ".") {
-        entry.textContent = "error, decimal without number"
-    } 
     else if (newArray.length == 0 && !parseFloat(entryText.textContent)) {
-        entry.textContent = "please begin with number"
+        entry.textContent = "need number to start"
     }
     else if ((parseFloat(entryText.textContent)) && parseFloat(newArray[newArray.length-1])) {
         entry.textContent = "error";
     }
     else if (!parseFloat(entryText.textContent) && !parseFloat(newArray[newArray.length-1])) {
-        entry.textContent = "error, 2 operators or zero";
+        entry.textContent = "error or zero";
     }
     else {
     newArray.push(entryText.textContent); 
@@ -112,13 +112,16 @@ const enter = () => {
 document.addEventListener("mousedown", function(e) {
 
     if (e.target.className == "working") {
+        //clears if answer is "0":
+        if (display.textContent == "0" || newArray[0] == 0) {display.textContent = ""; newArray = [];}
         display.classList.remove("fadeOut");
+        stopper(); //stops the 2 sec fadeout if it's still happening. 
         displayCalc(e);
     } 
     
-})
+});
 
-//main function that updates and displays numbers and operations, and executes the other calculating functions:
+//main function that updates and displays numbers and operands, and executes the other calculating functions:
 const displayCalc = (e) => {
     
     //if a number button is clicked, entry text is updated:
