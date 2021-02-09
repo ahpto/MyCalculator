@@ -10,39 +10,38 @@
 <body>
   <header>
     <h1>Drag and Drop Calculator <br></h1> 
-    <h3>please enter numbers and operations separately and click "enter" to add to the expression.<br>
+    <h3>Please enter numbers and operations separately and click "enter" to add each to the expression.<br>
     (scroll bar appears if display width exceeded)
     </h3>
   </header>
   
-  <div id="calculator" draggable="true">
-    <div id="display"></div >
-    <div id="entry"></div>
-    <div id="buttons">  
-      <button type="button" class="working" id="seven">7</button>
-      <button type="button" class="working" id="eight">8</button>
-      <button type="button" class="working" id="nine">9</button>
-      <button type="button" class="working" id="divide">&divide;</button>
-      <button type="button" class="working" id="clear">clear</button>
-      <button type="button" class="working" id="four">4</button>
-      <button type="button" class="working" id="five">5</button>
-      <button type="button" class="working" id="six">6</button>
-      <button type="button" class="working" id="multiply">&times;</button>
-      <button type="button" class="working" id="back">back</button>
-      <button type="button" class="working" id="one">1</button>
-      <button type="button" class="working" id="two">2</button>
-      <button type="button" class="working" id="three">3</button>
-      <button type="button" class="working" id="subtract">-</button>
-      <button type="button" class="working" id="equalsButton">=</button>
-      <button type="button" class="working" id="decimal">.</button>
-      <button type="button" class="working" id="zero">0</button>
-      <button type="button" class="working" id="enter">enter</button>
-      <button type="button" class="working" id="add">+</button>
+    <div id="calculator-border-wrap" draggable="true">
+      <div id="calculator" draggable="true">
+        <div id="display"></div >
+        <div id="entry"></div>
+        <div id="buttons">  
+          <button type="button" class="working" id="seven">7</button>
+          <button type="button" class="working" id="eight">8</button>
+          <button type="button" class="working" id="nine">9</button>
+          <button type="button" class="working" id="divide">&divide;</button>
+          <button type="button" class="working" id="clear">clear</button>
+          <button type="button" class="working" id="four">4</button>
+          <button type="button" class="working" id="five">5</button>
+          <button type="button" class="working" id="six">6</button>
+          <button type="button" class="working" id="multiply">&times;</button>
+          <button type="button" class="working" id="back">back</button>
+          <button type="button" class="working" id="one">1</button>
+          <button type="button" class="working" id="two">2</button>
+          <button type="button" class="working" id="three">3</button>
+          <button type="button" class="working" id="subtract">-</button>
+          <button type="button" class="working" id="equalsButton">=</button>
+          <button type="button" class="working" id="decimal">.</button>
+          <button type="button" class="working" id="zero">0</button>
+          <button type="button" class="working" id="enter">enter</button>
+          <button type="button" class="working" id="add">+</button>
+        </div>
     </div>
-  </div>
-
-  <div id="calculator-border-wrap" draggable="true"></div>
-
+   </div> 
 </body>
 
 <script src="MyCalculator.js"></script>

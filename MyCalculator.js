@@ -1,8 +1,7 @@
 //global variables:
-const calculator = document.querySelector("#calculator");
+const calculator = document.querySelector("#calculator-border-wrap");
 const display = document.querySelector("#display");
 const entry = document.querySelector("#entry");
-const calc = document.querySelector("#calculator-border-wrap");
 let entryText = document.createTextNode("");
 let newArray = [];
 let indexA = 0;
@@ -11,9 +10,14 @@ let indexB = 0;
 let indexB2 = 0;
 let arrayNum1 = 0; 
 let arrayNum2 = 0;
+let x = 0;
+let x1 = 0;
+let y = 0;
+let y1 = 0;
 
 let fade; 
 const stopper = () => {clearTimeout(fade)};
+
 
 //the following functions calculate operands in mathematically correct order (ie BEDMAS).
 const multiDivi = (newArray) => {
@@ -85,7 +89,7 @@ const operations = (newArray) => {
 
 //function for "enter": 
 const enter = () => {
-    if (entryText.textContent == "") {
+    if (entryText.textContent == "" || entryText.textContent == ".") {
         entry.textContent = "error, no entry"
     }
     else if (newArray.length == 0 && !parseFloat(entryText.textContent)) {
@@ -173,10 +177,8 @@ const displayCalc = (e) => {
             break;
 
         case "equalsButton" :
-            if (!parseFloat(newArray[newArray.length - 1])) {entry.textContent = "please end with number"}
-            else {display.textContent = "";
-            operations(newArray);
-            }  
+            display.textContent = "";
+            operations(newArray); 
             break;
         } 
     }
@@ -275,19 +277,39 @@ document.addEventListener("keydown", (e) => {
   
 });  
 
-// drag and drop calculator:   
-
-calculator.addEventListener("dragstart", function(e) {
-    
-    let x1 = e.offsetX; 
-    let y1 = e.offsetY;
-    calculator.addEventListener("dragend", function(e) {
-        let x = e.pageX; 
-        let y = e.pageY;
-        
+// Can drag and drop calculator on screen if screen larger than tablet size:  
+const dragStart = (e) => {
+    x1 = e.offsetX;
+    y1 = e.offsetY;
+}       
+            
+const dragEnd = (e) => {       
+        x = e.pageX;
+        y = e.pageY;
         calculator.style.top = y-y1+"px";
-        calculator.style.left = x-x1+"px"; 
-        calc.style.top = y-y1-10+"px";
-        calc.style.left = x-x1-10+"px"; 
-    }) 
-}) 
+        calculator.style.left = x-x1+"px";
+}
+calculator.addEventListener("dragstart", dragStart);
+calculator.addEventListener("dragend", dragEnd);
+
+//removes h3 element and reduces h1 font size if window size is narrowed:
+window.addEventListener('resize', function(e) {
+    calculator.addEventListener("dragstart", dragStart);
+    calculator.addEventListener("dragend", dragEnd);
+    
+     if (window.innerWidth < 1200 && window.innerWidth > 600) {         
+        document.querySelector("h3").style.display = "none";
+        document.querySelector("h1").style.fontSize = "2em";
+    }
+    else if (window.innerWidth < 600) {
+        calculator.removeEventListener("dragstart", dragStart);
+        calculator.removeEventListener("dragend", dragEnd);
+        calculator.style.left = 0;
+        calculator.style.top = 0;
+    }
+    else {
+        document.querySelector("h3").style.display = "";
+        document.querySelector("h1").style.fontSize = "3em";
+    }
+
+});
