@@ -223,27 +223,40 @@ h3 {
         left: 0;
         width: 100%;
         height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        justify-items: space-around;
     }
     #calculator {       
-       margin: 20px;  
+       margin: 20px; 
+       height: 100%; 
     }
 
     #display {
         height: 20vh;
         width: 100%;
         box-sizing: border-box;
+        border-radius: 16px;
     }
          
     #entry {
+        
         height: 10vh;
         width: 100%;
         box-sizing: border-box;
     }
         
     #buttons {
-        height: 63vh;
+        height: 100%;
         width: 100%;
         box-sizing: border-box;
+        border-radius: 16px;
+    }
+    #seven {
+        border-top-left-radius: 10px;
+    }
+    #clear {
+        border-top-right-radius: 10px;
     }
     body {
         background-image: none;
