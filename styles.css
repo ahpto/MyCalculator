@@ -244,6 +244,7 @@ h3 {
         height: 10vh;
         width: 100%;
         box-sizing: border-box;
+        border: solid 2px lightgray; 
     }
         
     #buttons {
@@ -251,6 +252,7 @@ h3 {
         width: 100%;
         box-sizing: border-box;
         border-radius: 16px;
+        border: solid 2px lightgray; 
     }
     #seven {
         border-top-left-radius: 10px;
