@@ -194,11 +194,8 @@ const displayCalc = (e) => {
     
     if (e.target.id == "decimal") {
         
-        let counter = 0;
-        for (i=0; i<entry.textContent.length; i++) 
-            { if (entry.textContent[i] == ".") {counter++;}   
-            }
-        if (counter > 0) {entry.textContent = "too many decimals"; entryText.nodeValue="";} 
+        if (entry.textContent.indexOf(".") > -1) {
+            entry.textContent = "too many decimals"; entryText.nodeValue="";}
         else { 
         entryText.nodeValue = entryText.textContent.concat(".");  
         entry.textContent = entryText.textContent;
@@ -260,16 +257,13 @@ document.addEventListener("keydown", (e) => {
             break;
 
             case "." :
-            let counter = 0;
-            for (i=0; i<entry.textContent.length; i++) 
-                { if (entry.textContent[i] == ".") {counter++;}   
+                if (entry.textContent.indexOf(".") > -1) {
+                    entry.textContent = "too many decimals"; entryText.nodeValue="";} 
+                else { 
+                entryText.nodeValue = entryText.textContent.concat(".");  
+                entry.textContent = entryText.textContent;
                 }
-            if (counter > 0) {entry.textContent = "too many decimals"; entryText.nodeValue="";} 
-            else { 
-            entryText.nodeValue = entryText.textContent.concat(".");  
-            entry.textContent = entryText.textContent;
-            }
-            break;
+                break;
         }
     }
 
