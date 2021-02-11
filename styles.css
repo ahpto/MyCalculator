@@ -225,7 +225,8 @@ h3 {
         display: block;
     }
     #calculator {       
-       margin: 20px;   
+       margin: 20px; 
+       height: 100%;  
     }
 
     #display {
@@ -252,6 +253,7 @@ h3 {
         box-sizing: border-box;
         border-radius: 16px;
         border: solid 2px lightgray; 
+        margin-bottom: 10vh
     }
     #seven {
         border-top-left-radius: 10px;
